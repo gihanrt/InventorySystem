@@ -1,98 +1,119 @@
 package com.company;
 
-import java.lang.String; /**
+import java.lang.String;
+import java.util.Date;
+
+/**
  * Created by taniyaj on 1/14/2018.
  */
 public class Item {
-    private static String itemName;
-    private static int itemCode;
-    private static double itemBuyPrice;
-    private static double itemSellPrice;
-    private static double itemAvgBuyPrice;
-    private static double itemQuantity;
-    private static ItemUnits itemUnit;
-    private static ItemStatus itemStatus;
-    private static String itemCatagory;
-    private static String itemDescription;
+    private String itemName;
+    private int itemCode;
+    private double itemBuyPrice;
+    private double itemSellPrice;
+    private double itemAvgBuyPrice;
+    private double itemQuantity;
+    private ItemUnits itemUnit;
+    private ItemStatus itemStatus;
+    private String itemCatagory;
+    private String itemDescription;
+    private String itemLastUpdateReason;
+    private Date itemLastUpdateTime;
 
-    public static String getItemName() {
-        return itemName;
+    public String getItemName() {
+        return this.itemName;
     }
 
-    public static void setItemName(String itemName) {
-        Item.itemName = itemName;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    public static int getItemCode() {
-        return itemCode;
+    public int getItemCode() {
+        return this.itemCode;
     }
 
-    public static void setItemCode(int itemCode) {
-        Item.itemCode = itemCode;
+    public void setItemCode(int itemCode) {
+        this.itemCode = itemCode;
     }
 
-    public static double getItemBuyPrice() {
-        return itemBuyPrice;
+    public double getItemBuyPrice() {
+        return this.itemBuyPrice;
     }
 
-    public static void setItemBuyPrice(double itemBuyPrice) {
-        Item.itemBuyPrice = itemBuyPrice;
+    public void setItemBuyPrice(double itemBuyPrice) {
+        this.itemBuyPrice = itemBuyPrice;
     }
 
-    public static double getItemSellPrice() {
-        return itemSellPrice;
+    public double getItemSellPrice() {
+        return this.itemSellPrice;
     }
 
-    public static void setItemSellPrice(double itemSellPrice) {
-        Item.itemSellPrice = itemSellPrice;
+    public void setItemSellPrice(double itemSellPrice) {
+        this.itemSellPrice = itemSellPrice;
     }
 
-    public static double getItemAvgBuyPrice() {
-        return itemAvgBuyPrice;
+    public double getItemAvgBuyPrice() {
+        return this.itemAvgBuyPrice;
     }
 
-    public static void setItemAvgBuyPrice(double itemAvgBuyPrice) {
-        Item.itemAvgBuyPrice = itemAvgBuyPrice;
+    public void setItemAvgBuyPrice(double itemAvgBuyPrice) {
+        this.itemAvgBuyPrice = itemAvgBuyPrice;
     }
 
-    public static double getItemQuantity() {
-        return itemQuantity;
+    public double getItemQuantity() {
+        return this.itemQuantity;
     }
 
-    public static void setItemQuantity(double itemQuantity) {
-        Item.itemQuantity = itemQuantity;
+    public void setItemQuantity(double itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
-    public static ItemUnits getItemUnit() {
-        return itemUnit;
+    public ItemUnits getItemUnit() {
+        return this.itemUnit;
     }
 
-    public static void setItemUnit(ItemUnits itemUnit) {
-        Item.itemUnit = itemUnit;
+    public void setItemUnit(ItemUnits itemUnit) {
+        this.itemUnit = itemUnit;
     }
 
-    public static ItemStatus getItemStatus() {
-        return itemStatus;
+    public ItemStatus getItemStatus() {
+        return this.itemStatus;
     }
 
-    public static void setItemStatus(ItemStatus itemStatus) {
-        Item.itemStatus = itemStatus;
+    public void setItemStatus(ItemStatus itemStatus) {
+        this.itemStatus = itemStatus;
     }
 
-    public static String getItemDescription() {
-        return itemDescription;
+    public String getItemDescription() {
+        return this.itemDescription;
     }
 
-    public static void setItemDescription(String itemDescription) {
-        Item.itemDescription = itemDescription;
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
     }
 
-    public static String getItemCatagory() {
-        return itemCatagory;
+    public String getItemCatagory() {
+        return this.itemCatagory;
     }
 
-    public static void setItemCatagory(String itemCatagory) {
-        Item.itemCatagory = itemCatagory;
+    public void setItemCatagory(String itemCatagory) {
+        this.itemCatagory = itemCatagory;
+    }
+
+    public Date getItemLastUpdateTime() {
+        return itemLastUpdateTime;
+    }
+
+    public void setItemLastUpdateTime(Date itemLastUpdateTime) {
+        this.itemLastUpdateTime = itemLastUpdateTime;
+    }
+
+    public String getItemLastUpdateReason() {
+        return itemLastUpdateReason;
+    }
+
+    public void setItemLastUpdateReason(String itemLastUpdateReason) {
+        this.itemLastUpdateReason = itemLastUpdateReason;
     }
 
     public Item(String itemName,double itemBuyPrice,double itemSellPrice,double itemQuantity,ItemUnits itemUnit,ItemStatus itemStatus,String itemCatagory) {

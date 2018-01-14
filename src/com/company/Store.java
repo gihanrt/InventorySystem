@@ -1,6 +1,8 @@
 package com.company;
 
-import java.lang.String;import java.lang.System;import java.util.HashMap;
+import java.lang.String;import java.lang.System;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,8 +12,8 @@ public class Store {
     public String storeName;
     public Invoice invoice;
     public static User user;
-
-
+    public int itemCode = 0;
+    public Date itemLastUpdateTime;
 
     public static Map<String,Item> itemMap;
 
@@ -20,6 +22,9 @@ public class Store {
         this.storeName = storeName;
         this.user = user;
         itemMap = new HashMap<>();
+
+
+
     }
 
     public String getStoreName() {
@@ -40,36 +45,34 @@ public class Store {
 
     public Item createNewItem(String itemName,double itemBuyPrice,double itemSellPrice,double itemQuantity,ItemUnits itemUnit,ItemStatus itemStatus,String itemCatagory){
         Item item = new Item(itemName,itemBuyPrice,itemSellPrice,itemQuantity,itemUnit,itemStatus,itemCatagory);
-        boolean itemFound = searchItem(item);
 
-        if ( itemFound == true){
-            System.out.println("Error, Item already Exist.. \n");
-            item = null;
-            return null;
-        }
-        else {
-            itemMap.put(item.getItemName(),item);
-            System.out.println("New Item , "+item.getItemName()+ " is Created Successfully...");
-            return item;
-        }
+        return addItem(item);
+    }
 
+    private Map.Entry<String, Item> getNextItemCode(){
+        Map.Entry<String, Item> maxEntry = null;
+
+        for (Map.Entry<String, Item> entry : itemMap.entrySet())
+        {
+            if (maxEntry == null || (entry.getValue().getItemCode() > (maxEntry.getValue().getItemCode()) ))
+            {
+                maxEntry = entry;
+            }
+        }
+        return maxEntry;
     }
 
     public Map<String,Item> viewItem(){
-
-
-
+        for (Map.Entry<String, Item> entry : itemMap.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue().getItemQuantity() + " : "+entry.getValue().getItemCode()+" : "+entry.getValue().getItemAvgBuyPrice());
+        }
         return null;
     }
 
-    public boolean updateItem(Item item){
-
-        return true;
-    }
-
     public boolean deleteItem(Item item){
-        if (searchItem(item) == true){
-            itemMap.remove(item);
+        Item itemFound = searchItem(item.getItemName());
+        if (itemFound != null){
+            itemMap.remove(item.getItemName());
             System.out.println("Item , "+ item.getItemName() + " Delete Successfull..");
             return true;
         }
@@ -86,11 +89,86 @@ public class Store {
         return true;
     }
 
-    public boolean searchItem(Item item){
-        return itemMap.containsValue(item);
-        //return itemMap.get(item.getItemName());
+    public Item searchItem(String itemName){
+        return itemMap.get(itemName);
+    }
+
+    public boolean updateItemName(String oldItemName,String newName){
+
+        Item prevItem = searchItem(oldItemName);
+
+        if(prevItem != null){
+            deleteItem(searchItem(oldItemName));
+
+            prevItem.setItemName(newName);
+            itemMap.put(prevItem.getItemName(),prevItem);
+        }
+
+        prevItem.setItemLastUpdateReason("Update Item Name.");
+        prevItem.setItemLastUpdateTime(new Date());
+
+        return true;
+    }
+
+    public boolean updateItemBuyPrice(Item item,double newBuyPrice){
+        item.setItemBuyPrice(newBuyPrice);
+        item.setItemAvgBuyPrice(newBuyPrice);
+        item.setItemLastUpdateReason("Update Item Price.");
+        item.setItemLastUpdateTime(new Date());
+        return true;
+    }
+
+    public boolean amendItemBuyPriceOrQuantity(Item item,double newBuyPrice,double newQuantity){
+        //If newBuyPrice is zero set default as current itemBuyPrice
+        if(Double.compare(newBuyPrice,0)== 0){
+            newBuyPrice = item.getItemBuyPrice();
+        }
+
+        //Calculate ItemnewTotal Qty and new avgBuyPrice
+        double newTotalQuantity = item.getItemQuantity()+newQuantity;
+        double avgBuyPrice = (item.getItemBuyPrice()*item.getItemQuantity() + newBuyPrice*newQuantity)/newTotalQuantity;
 
 
+        item.setItemAvgBuyPrice(avgBuyPrice);
+
+        item.setItemQuantity(newTotalQuantity);
+
+        item.setItemBuyPrice(newBuyPrice);
+
+        item.setItemLastUpdateReason("Update Item Price.");
+        item.setItemLastUpdateTime(new Date());
+
+        return true;
+
+    }
+
+    private Item addItem(Item item){
+
+        Item itemFound = searchItem(item.getItemName());
+
+        if (itemFound != null){
+            System.out.println("Error, Item already Exist.. \n");
+            item = null;
+            return null;
+        }
+        else {
+            try{
+                itemCode = getNextItemCode().getValue().getItemCode()+1;
+            }catch (NullPointerException e){
+                itemCode = 1;
+            }
+            item.setItemCode(itemCode);
+
+            itemLastUpdateTime = new Date();
+            item.setItemLastUpdateTime(itemLastUpdateTime);
+
+            item.setItemAvgBuyPrice(item.getItemBuyPrice());
+
+            itemMap.put(item.getItemName(),item);
+            System.out.printf("New Item , " + item.getItemName() + " %s %tF - %<tr", "is Created Successfully at", item.getItemLastUpdateTime());
+            System.out.println("\n");
+            return item;
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package test.projects.inventrySystem;
+package test;
 
 import com.company.*;
 import org.junit.Test;
@@ -24,28 +24,29 @@ public class StoreTest {
     @Test
     public void storeTest(){
         setupStore();
-        myStore.createNewItem("Book", 70, 85, 100, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        //myStore.deleteItem(newItem01);
+        newItem01= myStore.createNewItem("Book", 70, 85, 100, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+        myStore.deleteItem(newItem01);
         myStore.createNewItem("Pencil", 56, 34, 200, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        myStore.createNewItem("Pen", 56, 34, 200, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+        myStore.createNewItem("Pen", 33, 78, 4500, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+        myStore.createNewItem("Bottle", 67, 55, 2400, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+        myStore.createNewItem("Bottle", 67, 55, 2400, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+        newItem01= myStore.createNewItem("Bag", 67, 55, 3000, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
 
-        Map<String,Item> itMap = myStore.getItemMap();
-//        System.out.println(itMap.get("Book").getItemName());
+        myStore.viewItem();
 
+        myStore.amendItemBuyPriceOrQuantity(newItem01,656,1000);
 
-        System.out.println("\nView Store...\n");
-        for (Item val : itMap.values()){
-            System.out.println(val.getItemName());
-            System.out.println(val.getItemQuantity());
-        }
-//
-//        System.out.println(myStore.getItemMap().get("Book").getItemName());
-//
-//        Item item = new Item("AAAA",23,34,55,ItemUnits.IU_LENGTH,ItemStatus.IS_NEW,"aaa");
-//        myStore.getItemMap().put(item.getItemName(), item);
-//        System.out.println(myStore.getItemMap().get("AAAA").getItemName());
-//        Item t = myStore.getItemMap().get("SS");
-//        System.out.println(t.getItemName());
+        myStore.viewItem();
+
+        myStore.updateItemBuyPrice(newItem01,200);
+
+        myStore.viewItem();
+
+        System.out.println("Update Item Name... ");
+        myStore.updateItemName("Bag","Mini Bags");
+
+        myStore.viewItem();
+
 
 
 
