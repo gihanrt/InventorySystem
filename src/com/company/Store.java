@@ -1,6 +1,7 @@
 package com.company;
 
 import java.lang.String;import java.lang.System;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,30 +10,29 @@ import java.util.Map;
  * Created by taniyaj on 1/14/2018.
  */
 public class Store {
-    public String storeName;
+    public static final String storeName = "Our Inventry Management System";
     public Invoice invoice;
     public static User user;
     public int itemCode = 0;
     public Date itemLastUpdateTime;
+    public UserLogin userLogin;
 
     public static Map<String,Item> itemMap;
 
+//    public DBConnectionHandler dbConnectionHandler = null;
 
-    public Store(String storeName,User user){
-        this.storeName = storeName;
+
+    public Store(User user){
         this.user = user;
         itemMap = new HashMap<>();
+        String CONN = "jdbc:mysql://localhost/inventrysystemdb";
 
-
-
+//        dbConnectionHandler = new DBConnectionHandler(user.getUserName(),user.getPassword().toString(),CONN);
+//        dbConnectionHandler = new DBConnectionHandler();
     }
 
     public String getStoreName() {
         return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
     }
 
     public Map<String, Item> getItemMap() {
@@ -171,5 +171,12 @@ public class Store {
         }
     }
 
+    public void addNewUser(User user) throws SQLException {
+        userLogin.dbConnectionHandler.addUserToDB(user);
+    }
+
+    private void updateUserLoggin(User user){
+
+    }
 
 }

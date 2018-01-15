@@ -3,7 +3,7 @@ package test;
 import com.company.*;
 import org.junit.Test;
 
-import java.util.Map;
+import java.sql.SQLException;
 
 
 /**
@@ -15,38 +15,54 @@ public class StoreTest {
     //@Before
     private void setupStore(){
         User user = new User("Taniya");
-        myStore = new Store("Toon Store",user);
+        myStore = new Store(user);
 
 
     }
 
 
     @Test
-    public void storeTest(){
-        setupStore();
-        newItem01= myStore.createNewItem("Book", 70, 85, 100, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        myStore.deleteItem(newItem01);
-        myStore.createNewItem("Pencil", 56, 34, 200, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        myStore.createNewItem("Pen", 33, 78, 4500, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        myStore.createNewItem("Bottle", 67, 55, 2400, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        myStore.createNewItem("Bottle", 67, 55, 2400, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
-        newItem01= myStore.createNewItem("Bag", 67, 55, 3000, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+    public void storeTest() throws SQLException {
+//        setupStore();
+//        newItem01= myStore.createNewItem("Book", 70, 85, 100, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+//        myStore.deleteItem(newItem01);
+//        myStore.createNewItem("Pencil", 56, 34, 200, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+//        myStore.createNewItem("Pen", 33, 78, 4500, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+//        myStore.createNewItem("Bottle", 67, 55, 2400, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+//        myStore.createNewItem("Bottle", 67, 55, 2400, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+//        newItem01= myStore.createNewItem("Bag", 67, 55, 3000, ItemUnits.IU_PICES, ItemStatus.IS_NEW, "Stationary");
+//
+//        myStore.viewItem();
+//
+//        myStore.amendItemBuyPriceOrQuantity(newItem01,656,1000);
+//
+//        myStore.viewItem();
+//
+//        myStore.updateItemBuyPrice(newItem01,200);
+//
+//        myStore.viewItem();
+//
+//        System.out.println("Update Item Name... ");
+//        myStore.updateItemName("Bag","Mini Bags");
+//
+//        myStore.viewItem();
 
-        myStore.viewItem();
 
-        myStore.amendItemBuyPriceOrQuantity(newItem01,656,1000);
+//        DBConnectionHandler dbConnection = new DBConnectionHandler();
+//        //dbConnection.getConnection();
+//
+//        User user1 = new User("Taniya");
+//        dbConnection.addUserToDB(user1);
 
-        myStore.viewItem();
 
-        myStore.updateItemBuyPrice(newItem01,200);
+        UserLogin userLogin = new UserLogin("Taniya","taniya");
+        User user = userLogin.initUserLoggin(UserStatus.EXISTING_USER);
 
-        myStore.viewItem();
 
-        System.out.println("Update Item Name... ");
-        myStore.updateItemName("Bag","Mini Bags");
-
-        myStore.viewItem();
-
+//        if(user != null ){
+//            myStore = new Store(user);
+//            myStore.addNewUser(user);
+//        }
 
 
 
